@@ -89,29 +89,31 @@ int createLeafNodes(int freq[]) {
 
 // Step 3: Build the encoding tree using heap operations
 int buildEncodingTree(int nextFree) {
-    // TODO:
-    Minheap heap;
-
+    MinHeap heap;
+    //pushes leaves into heap
     for (int i = 0; i < nextFree; ++i) {
         heap.push(i, weightArr);
     }
+    //makes the next free for the internal nodes
     int curNext = nextFree;
     while (heap.size > 1) {
         int leftIdx = heap.pop(weightArr);
         int rightIdx = heap.pop(weightArr);
-
+    //displays an error if the next node exceeds the max amount of nodes
         if (curNext >= MAX_NODES) {
             cerr << "Error: too many nodes.\n";
             exit(1);
         }
+       //creates the parent and internal node
         int parent = curNext++;
         weightArr[parent] = weightArr[leftIdx] + weightArr[rightIdx];
         leftArr[parent] = leftIdx;
         rightArr[parent] = rightIdx;
         charArr[parent] = '\0';
-
+        //pushes the node to the heap
         heap.push(parent, weightArr);
     }
+    //the node remaining is the root node
     int root = heap.pop(weightArr);
     return root;
 }
@@ -119,7 +121,17 @@ int buildEncodingTree(int nextFree) {
 // Step 4: Use an STL stack to generate codes
 void generateCodes(int root, string codes[]) {
     // TODO:
-    // Use stack<pair<int, string>> to simulate DFS traversal.
+    // Uses stack<pair<int, string>> to simulate DFS traversal.
+    stack<pair<int, string>> stack;
+    stack.push({root, ""});
+
+    while (!stack.empty()) {
+        auto cur = stack.top();
+        stack.pop();
+        int node = cur.first;
+        const string &path = cur.second;
+
+    }
     // Left edge adds '0', right edge adds '1'.
     // Record code when a leaf node is reached.
 }
