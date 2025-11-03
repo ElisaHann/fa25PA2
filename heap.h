@@ -33,7 +33,7 @@ struct MinHeap {
         }
         int root = data[0];
         size--;
-        if (size < 0) {
+        if (size > 0) {
             data[0] = data[size];
             downheap(0, weightArr);
         }
@@ -61,7 +61,7 @@ struct MinHeap {
             int right = 2 * pos + 2;
             int min = pos;
 
-            if (left < size && weightArr[data[left]] < weightArr[data[min]] || (weightArr[data[left]] == weightArr[data[min]] && data[left] < data[min])){
+            if (left < size && (weightArr[data[left]] < weightArr[data[min]] || (weightArr[data[left]] == weightArr[data[min]] && data[left] < data[min]))){
                 min = left;
             }
             if (right < size && (weightArr[data[right]] < weightArr[data[min]] || (weightArr[data[right]] == weightArr[data[min]] && data[right] < data[min]))) {
