@@ -120,7 +120,6 @@ int buildEncodingTree(int nextFree) {
 
 // Step 4: Use an STL stack to generate codes
 void generateCodes(int root, string codes[]) {
-    // TODO:
     // Uses stack<pair<int, string>> to simulate DFS traversal.
     stack<pair<int, string>> stack;
     stack.push({root, ""});
@@ -131,6 +130,22 @@ void generateCodes(int root, string codes[]) {
         int node = cur.first;
         const string &path = cur.second;
 
+        bool isLeaf = (leftArr[node] == -1 || rightArr[node] == -1);
+        if (isLeaf) {
+            char ch = charArr[node];
+            if (ch >= 'a' && ch <= 'z') {
+                //assigns 0 if there is only one unique character
+                codes[ch - 'a'] = path.empty() ? string("0") : path;
+            }
+            else {
+                if (rightArr[node] != -1) {
+                    stack.push({rightArr[node], path + "1"});
+                    if (leftArr[node] != -1) {
+                        stack.push({leftArr[node], path + "0"});
+                    }
+                }
+            }
+        }
     }
     // Left edge adds '0', right edge adds '1'.
     // Record code when a leaf node is reached.
