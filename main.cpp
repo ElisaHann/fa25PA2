@@ -147,7 +147,7 @@ void generateCodes(int root, string codes[]) {
             }
         }
     }
-    // Left edge adds '0', right edge adds '1'.
+    // Left edge adds '0', right edge adds '1'..
     // Record code when a leaf node is reached.
 }
 
